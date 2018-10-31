@@ -1,15 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:Sales.Helpers"
              x:Class="Sales.Views.ProductsPage"
-             BindingContext="{Binding Main,Source={StaticResource Locator}}">
+             BindingContext="{Binding Main,Source={StaticResource Locator}}"
+             Title="{i18n:Translate Products}">
     
     <ContentPage.Content>
         <StackLayout
             BindingContext="{Binding Products}"
-            BackgroundColor="Gray">
-            <ListView
-                ItemsSource="{Binding Products}">
+            Padding="5">
+            <ListView              
+                ItemsSource="{Binding Products}"
+                IsRefreshing="{Binding IsRefreshing}"
+                RefreshCommand="{Binding RefreshCommand}"
+                IsPullToRefreshEnabled="True"
+                HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
+                                       FontAttributes="Bold"
+                                       Text="{Binding Description}">
+                                </Label>
+                                <Label Grid.Column="1"
+                                       HorizontalOptions="End"
+                                       Text="{Binding Price, StringFormat='{0:C2}'}">
+                                </Label>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
     </ContentPage.Content>
