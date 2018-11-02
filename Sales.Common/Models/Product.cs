@@ -27,5 +27,17 @@
         [Display(Name = "Publish On")]
         [DataType(DataType.Date)]
         public DateTime PublishOn { get; set; }
+
+        public string ImageFullPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ImagePath))
+                {
+                    return null;
+                }
+                return $"http://localhost:57947{ImagePath.Substring(1)}";
+            }
+        }
     }
 }
